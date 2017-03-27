@@ -1,0 +1,4 @@
+test
+<cfoutput>
+	hola##
+</cfoutput>
