@@ -26,7 +26,7 @@
     <div class="container">
 
       <form class="form-signin" action="#CGI.script_name#?#CGI.query_string#" method="Post">
-        <h2 class="form-signin-heading">Machine Tracker</h2>
+        <h2 class="form-signin-heading">MTracker</h2>
         <h3 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">User Name</label>
         <input type="text" id="j_username" name="j_username" class="form-control" placeholder="UserName" required autofocus>
