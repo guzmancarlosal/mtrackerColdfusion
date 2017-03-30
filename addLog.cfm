@@ -1,4 +1,7 @@
 <cfparam name="url.machineid" default="">
+<cfquery name="qGetMachine" datasource="cc_mtracker">
+  SELECT * from machine where id='#url.machineid#'
+</cfquery>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,16 +31,18 @@
 
 
 <body  onload="startTime()">
-	<cfif url.machineID eq "">
+	<cfif url.machineID eq "" or qGetMachine.recordcount eq 0>
 		<div class="container">
 			Invalid Access 
 		</div>
 		<cfabort>
 	</cfif>
-
+	<cfoutput>
 	<div class="container">
 		<!---<form name="addLog" id="addLog" class="form-horizontal">--->
-			<h1 class="text-center"><cfoutput>#dateformat(now(),"dd-mmm-yyyy")#</cfoutput><div id="txt"></div></h1>
+			<h1 class="text-center">#qGetMachine.name#</h1>
+			<h5 class="text-center">#dateformat(now(),"dd-mmm-yyyy")#</h5>
+			<h1 class="text-center"><div id="txt"></div></h1>
 			<div class="form-group form-group-lg">
 				<select class="form-control input-lg" id="sel1" placeholder="Status">
 					<option value="" selected disabled>Selecciona el estatus de la máquina</option>
@@ -47,13 +52,17 @@
 				<input type="hidden" id="date" name="date">
 				<input type="hidden" id="idMachine" name="idMachine" value="#url.machineID#">
 			</div>
-			<div class="form-group form-group-lg">
+			<div class="form-group form-group-lg ">
 				<textarea class="form-control input-lg" placeholder="Comentarios"></textarea>
 			</div>
-			<div class="form-group form-group-lg ">
-				<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+			
+			<div class="form-group form-group-lg text-center">
+				<button class="btn btn-success btn-lg" data-toggle="modal" data-target="##myModal">
 					Actualizar
 				</button>
+			</div>
+			<div class="alert alert-danger text-center" role="alert">
+				Última Actualización fue enviada #dateformat(now())# a las #TimeFormat(now(), "hh:mm:sstt")#
 			</div>
 		<!---</form>--->
 		</div>
@@ -62,20 +71,22 @@
 			<div class="modal-dialog">
 			<!-- Modal content-->
 			<div class="modal-content">
-				<div class="modal-header modal-header-success">
+				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h2>Atención</h2>
+					<h3>Atención</h3>
 				</div>
 				<div class="modal-body">
 					<p>La información ha sido guardad exitosamente.</p>
 				</div>
-				<div class="modal-footer">
+
+				<div class="modal-footer ">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
 
 		</div>
 	</div>
+	</cfoutput>
 	<script src="js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
