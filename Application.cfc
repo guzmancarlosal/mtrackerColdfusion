@@ -52,50 +52,37 @@
     </cflogin> 
  
     <cfif GetAuthUser() NEQ ""> 
-        <cfoutput>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-        <cfinclude template="verification.cfm">
-        <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="##navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="##">MTracker</a>
+            <cfoutput>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+            <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+            <cfinclude template="verification.cfm">
+            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="##navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand" href="index.cfm">MTracker</a>
 
-          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="##">Home <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="##">Administrator</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="##">Disabled</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                  <a class="dropdown-item" href="##">Action</a>
-                  <a class="dropdown-item" href="##">Another action</a>
-                  <a class="dropdown-item" href="##">Something else here</a>
-                </div>
-              </li>
-            </ul>
-            <form class="form-inline my-2 my-md-0" id="logoutForm" name="logoutForm" action="index.cfm" method="Post">
-              <span style="color:white"><b>#GetAuthUser()#</b></span>&nsbp
-              <input type="hidden" id="logout" name="logout">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onClick="logoutForm.submit();">Logout</button>
-            </form>
-          </div>
-        </nav>
-        </cfoutput>
+              <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                  <cfif trim(userRole) eq "admin">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="admin.cfm">Administrador <span class="sr-only">(current)</span></a>
+                  </li>
+                  </cfif>
+                </ul>
+                <form class="form-inline my-2 my-md-0" id="logoutForm" name="logoutForm" action="index.cfm" method="Post">
+                  <span style="color:white"><b>#GetAuthUser()#</b></span>&nsbp
+                  <input type="hidden" id="logout" name="logout">
+                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" onClick="logoutForm.submit();">Salir</button>
+                </form>
+              </div>
+            </nav>
+            </cfoutput>
     </cfif> 
- 
 </cffunction> 
-<cffunction name="onError"> 
+<!---<cffunction name="onError"> 
     <cfargument name="Exception" required=true/> 
     <cfargument type="String" name="EventName" required=true/> 
     <!--- Log all errors. ---> 
@@ -116,5 +103,5 @@
             <cfdump var=#Arguments.Exception#></p> 
         </cfoutput> 
     </cfif> 
-</cffunction>
+</cffunction>--->
 </cfcomponent>

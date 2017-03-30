@@ -1,12 +1,9 @@
 <cfparam name="errormsj" default="">
 <cfoutput>
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <cfprocessingdirective pageencoding = "utf-8">
     <link rel="icon" href="../../favicon.ico">
 
     <title>Login</title>
@@ -19,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/> 
   </head>
 
   <body>
@@ -27,20 +25,20 @@
 
       <form class="form-signin" action="#CGI.script_name#?#CGI.query_string#" method="Post">
         <h2 class="form-signin-heading">MTracker</h2>
-        <h3 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">User Name</label>
-        <input type="text" id="j_username" name="j_username" class="form-control" placeholder="UserName" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="j_password" name="j_password" class="form-control" placeholder="Password" required>
+        <h3 class="form-signin-heading"></h2>
+        <label for="inputEmail" class="sr-only">Usuario</label>
+        <input type="text" id="j_username" name="j_username" class="form-control" placeholder="Usuario" required autofocus>
+        <label for="inputPassword" class="sr-only">Contraseña</label>
+        <input type="password" id="j_password" name="j_password" class="form-control" placeholder="Contraseña" required>
         <div class="checkbox">
             <cfoutput>#errorMsj#</cfoutput>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" value="remember-me"> Recuérdame
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
       </form>
 
     </div> <!-- /container -->
@@ -53,22 +51,4 @@
     <script src="js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
-></cfoutput>
-<cfabort>
-<H2>Please Log In</H2> 
-<cfoutput> 
-    <form action="#CGI.script_name#?#CGI.query_string#" method="Post"> 
-        <table> 
-            <tr> 
-                <td>user name:</td> 
-                <td><input type="text" name="j_username"></td> 
-            </tr> 
-            <tr> 
-                <td>password:</td> 
-                <td><input type="password" name="j_password"></td> 
-            </tr> 
-        </table> 
-        <br> 
-        <input type="submit" value="Log In"> 
-    </form> 
 </cfoutput>

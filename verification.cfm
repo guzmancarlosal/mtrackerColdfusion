@@ -1,11 +1,11 @@
 <cfparam name="userRole" default="">
 
 <cfif IsUserInAnyRole("admin")>
-    <cfset userRole = "admin" />1
+    <cfset userRole = "admin" />
 <cfelseif IsUserInAnyRole("log")> 
-    <cfset userRole = "Log" />2
+    <cfset userRole = "Log" />
 <cfelseif IsUserInAnyRole("Guest")>
-    <cfset userRole = "guest" />3
+    <cfset userRole = "guest" />
 <cfelse>
-	<cfset userRole = #GetUserRoles()#>
+	<cfset  userRole = #GetUserRoles()#>
 </cfif>

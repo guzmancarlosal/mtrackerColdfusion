@@ -1,49 +1,81 @@
+<cfparam name="url.machineid" default="">
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+<html>
+<head>
+  <cfprocessingdirective pageencoding = "utf-8">
+  <link rel="icon" href="../../favicon.ico">
 
-    <title>Signin Template for Bootstrap</title>
-
-    <!-- Bootstrap core CSS -->
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <div class="container">
-
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-
-    </div> <!-- /container -->
+  <title>Log Machine Status</title>
+  <!-- Custom styles for this template -->
+  <script>
+	function startTime() {
+		var today = new Date();
+		var h = today.getHours();
+		var m = today.getMinutes();
+		var s = today.getSeconds();
+		m = checkTime(m);
+		s = checkTime(s);
+		document.getElementById('txt').innerHTML =
+		h + ":" + m + ":" + s;
+		var t = setTimeout(startTime, 500);
+	}
+    function checkTime(i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+    }
+  </script>
+</head>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
+<body  onload="startTime()">
+	<cfif url.machineID eq "">
+		<div class="container">
+			Invalid Access 
+		</div>
+		<cfabort>
+	</cfif>
+
+	<div class="container">
+		<!---<form name="addLog" id="addLog" class="form-horizontal">--->
+			<h1 class="text-center"><cfoutput>#dateformat(now(),"dd-mmm-yyyy")#</cfoutput><div id="txt"></div></h1>
+			<div class="form-group form-group-lg">
+				<select class="form-control input-lg" id="sel1" placeholder="Status">
+					<option value="" selected disabled>Selecciona el estatus de la máquina</option>
+					<option>Activo</option>
+					<option>Inactivo</option>
+				</select>
+				<input type="hidden" id="date" name="date">
+				<input type="hidden" id="idMachine" name="idMachine" value="#url.machineID#">
+			</div>
+			<div class="form-group form-group-lg">
+				<textarea class="form-control input-lg" placeholder="Comentarios"></textarea>
+			</div>
+			<div class="form-group form-group-lg ">
+				<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
+					Actualizar
+				</button>
+			</div>
+		<!---</form>--->
+		</div>
+		<!-- Modal content-->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header modal-header-success">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h2>Atención</h2>
+				</div>
+				<div class="modal-body">
+					<p>La información ha sido guardad exitosamente.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
 </html>
