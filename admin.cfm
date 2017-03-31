@@ -1,4 +1,3 @@
-
 <cfoutput>
   <!DOCTYPE html>
   <html>
@@ -26,19 +25,35 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="container">
-			<div class="row">
-				<div class="col-sm-12 text-center">
-		   			<p class="lead" style="color:red">Zona de peligro</p>
-			    </div>
-			    </div>
-			<div class="row">
-				<div class="col-sm-6 text-center">
-					<p><a class="btn btn-lg btn-danger" href="##" role="button" id="startBtn">Eliminar Usuario</a></p>
-				</div> 
-				<div class="col-sm-6 text-center">
-					<p><a class="btn btn-lg btn-danger" href="##" role="button" id="startBtn">Eliminar Maquina</a></p>
+			<div class="col-sm-4 text-center">&nbsp;</div>
+		</div>
+		<div class="container">
+			<div class="col-sm-4 text-center">&nbsp;</div>
+		</div>
+		<div class="container">
+			<div class="col-sm-4 text-center">&nbsp;</div>
+		</div>
+		<div class="container">
+			<div class="col-sm-4 text-center">&nbsp;</div>
+		</div>
+		<div class="container">
+			<div class="col-sm-4 text-center">&nbsp;</div>
+		</div>
+		<div class="container">
+			<div class="alert alert-danger text-center" role="alert">
+				<div class="row">
+					<div class="col-sm-12 text-center">
+			   			<p class="lead" style="color:red">Zona de peligro</p>
+				    </div>
+				    </div>
+				<div class="row">
+					<div class="col-sm-6 text-center">
+						<p><a class="btn btn-lg btn-danger" href="##" role="button" id="startBtn">Eliminar Usuario</a></p>
+					</div> 
+					<div class="col-sm-6 text-center">
+						<p><a class="btn btn-lg btn-danger" href="##" role="button" id="startBtn">Eliminar Maquina</a></p>
+					</div>
 				</div>
 			</div>
 	    	<!-- Site footer -->

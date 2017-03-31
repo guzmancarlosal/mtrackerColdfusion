@@ -1,6 +1,9 @@
 <cfparam name="url.machineid" default="">
 <cfquery name="qGetMachine" datasource="cc_mtracker">
-  SELECT * from machine where id='#url.machineid#'
+  SELECT name 
+  FROM machine 
+  WHERE id='#url.machineid#'
+  	AND status = 1
 </cfquery>
 <!DOCTYPE html>
 <html>
@@ -33,7 +36,7 @@
 <body  onload="startTime()">
 	<cfif url.machineID eq "" or qGetMachine.recordcount eq 0>
 		<div class="container">
-			Invalid Access 
+			Invalid Access/ma
 		</div>
 		<cfabort>
 	</cfif>

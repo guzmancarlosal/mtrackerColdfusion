@@ -1,5 +1,6 @@
 <cfquery name="qGetMachine" datasource="cc_mtracker">
   SELECT * from machine
+  WHERE status = 1
 </cfquery>
 <cfoutput>
   <!DOCTYPE html>

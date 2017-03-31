@@ -102,3 +102,12 @@ GO
 ALTER TABLE  dbo.[USER] SET (LOCK_ESCALATION = TABLE)
 GO
 COMMIT
+
+///***********************FINAL ATTACHMENTS
+BEGIN TRANSACTION
+GO
+ALTER TABLE dbo.machine ADD
+	status char(2) 
+GO
+COMMIT
+/// MORE*/
