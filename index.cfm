@@ -20,7 +20,7 @@
           <cfloop query="#qGetMachine#">
             <option value="#qGetMachine.id#">#qGetMachine.name#
           </cfloop>
-        </select>
+        </select><br>
         <p><a class="btn btn-lg btn-success" href="addLog.cfm?machineid=1" role="button" id="startBtn">Empezar</a></p>        
       </div>
       <!-- Site footer -->

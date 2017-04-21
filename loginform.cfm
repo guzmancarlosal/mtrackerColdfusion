@@ -4,7 +4,7 @@
 <html>
   <head>
     <cfprocessingdirective pageencoding = "utf-8">
-    <link rel="icon" href="../../favicon.ico">
+    <link rel="icon" href="img/mTrackericonsmal.png">
 
     <title>Login</title>
 
@@ -17,17 +17,28 @@
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"/> 
+    <style>
+      .btn-primary,
+      .btn-primary:hover,
+      .btn-primary:active,
+      .btn-primary:visited,
+      .btn-primary:focus {
+          background-color: ##005e85;
+          border-color: ##005e85;
+      }
+    </style>
   </head>
 
   <body>
 
-    <div class="container">
-
+    <div class="container text-center">
+      
       <form class="form-signin" action="#CGI.script_name#?#CGI.query_string#" method="Post">
+        <img src="img/mTrackericonsmal.png">
         <h2 class="form-signin-heading">MTracker</h2>
         <h3 class="form-signin-heading"></h2>
         <label for="inputEmail" class="sr-only">Usuario</label>
-        <input type="text" id="j_username" name="j_username" class="form-control" placeholder="Usuario" required autofocus>
+        <input type="text" id="j_username" name="j_username" class="form-control" placeholder="Usuario" required autofocus><Br>
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input type="password" id="j_password" name="j_password" class="form-control" placeholder="Contraseña" required>
         <div class="checkbox">
@@ -40,8 +51,11 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
       </form>
-
+    <div class="container text-center">
+    ¿Qué es MTracker? <a href="http://mtracker.xikmaapps.com/">da click aquí</a> para obtener más información
+    </div>
     </div> <!-- /container -->
+
     <script src="js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>

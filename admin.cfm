@@ -10,18 +10,32 @@
     	<div class="container">
 	    	<!-- Jumbotron -->
 	    	<div class="jumbotron">
-		    	<h1>Bienvenido a #application.applicationname# Administración</h1>
-		    	<p class="lead">Selecciona el elemento a Administrar</p>
+		    	<h1>#application.applicationname# Administración</h1>
+		    	<p class="lead">Selecciona el modulo a Administrar</p>
 	   		</div>
 		    <div class="row">
 				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="##" role="button" id="startBtn">Alta Usuarios</a></p>
+					<p><a class="btn btn-lg btn-success" href="userreport.cfm" role="button" id="startBtn">Usuario</a></p>
+					<p>Agregar, modificar, eliminar datos de usuarios</p>
 				</div>
 				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="##" role="button" id="startBtn">Alta Máquinas</a></p>
+					<p><a class="btn btn-lg btn-success" href="machineReport.cfm" role="button" id="startBtn">Máquina</a></p>
+					<p>Agregar, modificar, eliminar Máquinas</p>
 				</div>
 				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="##" role="button" id="startBtn">Asignar Usuario a Maquina</a></p>
+					<p><a class="btn btn-lg btn-success" href="userreport.cfm" role="button" id="startBtn">Roles</a></p>
+					<p>Configuración de reportes</p>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-sm-6 text-center">
+					<p><a class="btn btn-lg btn-success" href="orgreport.cfm" role="button" id="startBtn">Organización</a></p>
+					<p>Agregar, modificar, eliminar datos de Organizacion</p>
+				</div>
+				<div class="col-sm-6 text-center">
+					<p><a class="btn btn-lg btn-success" href="##" role="button" id="startBtn">Sitio</a></p>
+					<p>Agregar, modificar, eliminar datos de Sitios</p>
 				</div>
 			</div>
 		</div>
@@ -38,9 +52,11 @@
 			<div class="col-sm-4 text-center">&nbsp;</div>
 		</div>
 		<div class="container">
-			<div class="col-sm-4 text-center">&nbsp;</div>
+			<footer class="footer">
+	    		<p>&copy; Xikma Apps #year(now())#</p>
+	    	</footer>
 		</div>
-		<div class="container">
+		<!---<div class="container">
 			<div class="alert alert-danger text-center" role="alert">
 				<div class="row">
 					<div class="col-sm-12 text-center">
@@ -60,7 +76,7 @@
 	    	<footer class="footer">
 	    		<p>&copy; Xikma Apps #year(now())#</p>
 	    	</footer>
-	    </div> <!-- /container -->
+	    </div> <!-- /container -->--->
 	      <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	      <script src="js/ie10-viewport-bug-workaround.js"></script>
     </body>

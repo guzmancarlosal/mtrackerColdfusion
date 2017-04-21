@@ -58,28 +58,45 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
             <cfinclude template="verification.cfm">
-            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
+            <style>
+
+                .bg-inverse {
+                    background-color: ##005e85 !important;
+                }
+                body {
+                    padding-top: 0px !important;
+                }
+            </style>
+            <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse" style="">
+
               <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="##navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                 
                 <span class="navbar-toggler-icon"></span>
               </button>
-              <a class="navbar-brand" href="index.cfm">MTracker</a>
+              <a class="navbar-brand" href="index.cfm"><img src="img/mTrackericonsmal.png"> MTracker</a>
 
               <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                  <cfif trim(userRole) eq "admin">
-                  <li class="nav-item active">
-                    <a class="nav-link" href="admin.cfm">Administrador <span class="sr-only">(current)</span></a>
-                  </li>
-                  </cfif>
+                    <cfif trim(userRole) eq "admin">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="admin.cfm">Administrador <span class="sr-only">(current)</span></a>
+                        </li>
+                    </cfif>
+                    <cfif trim(userRole) eq "admin" or trim(userRole) eq "report">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="reports.cfm" >Reporte <span class="sr-only">(current)</span></a>
+                        </li>
+                    </cfif>
                 </ul>
+                <a class="nav-link" style="color:white"><b>#GetAuthUser()#</b></a>
+           
                 <form class="form-inline my-2 my-md-0" id="logoutForm" name="logoutForm" action="index.cfm" method="Post">
-                  <span style="color:white"><b>#GetAuthUser()#</b></span>&nsbp
-                  <input type="hidden" id="logout" name="logout">
-                  <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" onClick="logoutForm.submit();">Salir</button>
-                </form>
+                    <input type="hidden" id="logout" name="logout">
+                    <button class="btn btn-default" type="submit" onClick="logoutForm.submit();">Salir</button>
+                </form>  
               </div>
             </nav>
-            </cfoutput>
+        </cfoutput>
     </cfif> 
 </cffunction> 
 <!---<cffunction name="onError"> 

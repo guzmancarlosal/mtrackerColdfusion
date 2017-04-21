@@ -55,6 +55,9 @@
 				<input type="hidden" id="date" name="date">
 				<input type="hidden" id="idMachine" name="idMachine" value="#url.machineID#">
 			</div>
+			<div class="form-group form-group-lg">
+				<input class="form-control input-lg" id="pie1" placeholder="Numero de Piezas:Objetivo 50 piezas" type="">
+			</div>
 			<div class="form-group form-group-lg ">
 				<textarea class="form-control input-lg" placeholder="Comentarios"></textarea>
 			</div>
@@ -76,7 +79,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h3>Atención</h3>
+					Alerta
 				</div>
 				<div class="modal-body">
 					<p>La información ha sido guardad exitosamente.</p>
