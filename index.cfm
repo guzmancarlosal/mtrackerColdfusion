@@ -1,4 +1,5 @@
-<cfquery name="qGetMachine" datasource="cc_mtracker">
+<cfparam name="request.ODBC" default="cc_mtracker">
+<cfquery name="qGetMachine" datasource="#request.ODBC#">
   SELECT * from machine
   WHERE status = 1
 </cfquery>

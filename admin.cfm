@@ -15,7 +15,7 @@
 	   		</div>
 		    <div class="row">
 				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="userreport.cfm" role="button" id="startBtn">Usuario</a></p>
+					<p><a class="btn btn-lg btn-success" href="userReport.cfm" role="button" id="startBtn">Usuario</a></p>
 					<p>Agregar, modificar, eliminar datos de usuarios</p>
 				</div>
 				<div class="col-sm-4 text-center">
@@ -23,14 +23,14 @@
 					<p>Agregar, modificar, eliminar Máquinas</p>
 				</div>
 				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="userreport.cfm" role="button" id="startBtn">Roles</a></p>
+					<p><a class="btn btn-lg btn-success" href="userReport.cfm" role="button" id="startBtn">Roles</a></p>
 					<p>Configuración de reportes</p>
 				</div>
 
 			</div>
 			<div class="row">
 				<div class="col-sm-6 text-center">
-					<p><a class="btn btn-lg btn-success" href="orgreport.cfm" role="button" id="startBtn">Organización</a></p>
+					<p><a class="btn btn-lg btn-success" href="orgReport.cfm" role="button" id="startBtn">Organización</a></p>
 					<p>Agregar, modificar, eliminar datos de Organizacion</p>
 				</div>
 				<div class="col-sm-6 text-center">
