@@ -8,12 +8,14 @@
       <cfprocessingdirective pageencoding = "utf-8">
       <title>MTracker</title>
       <link href="css/justified-nav.css" rel="stylesheet">
+      <link rel="icon" href="img/mTrackericonsmal.png">
     </head>
     <body>
     	<div class="container">
 			
 		 	<h2>Lista de Organizaciones</h2>
-		  	<p><a class="btn btn-success" href="orgAdd.cfm" role="button" id="startBtn">Agregar una Organización</a></p>  
+		  	<p><a class="btn btn-success" href="orgAdd.cfm" role="button" id="startBtn">Agregar una Organización</a> <a class="btn btn-danger" href="admin.cfm" role="button" id="startBtn">Regresar</a></p>  
+		  
 		  	<p>Selecciona una organización a editar, eliminala con el boton X</p>         
 			<table class="table">
 			    <thead>
@@ -22,17 +24,15 @@
 			        <th>Nombre</th>
 			        <th>Estatus</th>
 			        <th>Fecha Creada</th>
-			        <th>Eliminar</th>
 			      </tr>
 			    </thead>
 			    <tbody>
 			    <cfloop query="qOrgs">
 			     	<tr>
-			     		<td>#qOrgs.id#<td>
-			     		<td>#qOrgs.name#<td>
-			     		<th>#qOrgs.dateCreated#</th>
-			     		<td>#qOrgs.active#<td>
-			     		<td><span class="glyphicon glyphicon-remove"></span><td>
+			     		<td><a  href="orgAdd.cfm?orgID=#qOrgs.id#" role="button" id="startBtn">#qOrgs.id#</a></td>
+			     		<td>#qOrgs.name# </td>
+			     		<td><cfif qOrgs.status eq 1>Activa<cfelse>Inactiva</cfif></td>
+			     		<td>#dateformat(qOrgs.dateCreated,"dd-mmm-yyyy")#</td>
 			     	<tr>
 			     </cfloop>
 			    </tbody>

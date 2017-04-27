@@ -34,7 +34,7 @@
 					<p>Agregar, modificar, eliminar datos de Organizacion</p>
 				</div>
 				<div class="col-sm-6 text-center">
-					<p><a class="btn btn-lg btn-success" href="##" role="button" id="startBtn">Sitio</a></p>
+					<p><a class="btn btn-lg btn-success" href="siteReport.cfm" role="button" id="startBtn">Sitio</a></p>
 					<p>Agregar, modificar, eliminar datos de Sitios</p>
 				</div>
 			</div>
