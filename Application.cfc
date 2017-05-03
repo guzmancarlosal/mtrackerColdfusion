@@ -35,14 +35,14 @@
                     <cfif loginQuery.status neq 0>
                         <cfloginuser name="#cflogin.name#" Password = "#cflogin.password#" roles="#loginQuery.type#">
                     <cfelse>
-                        <cfset errormsj ="User <cfoutput><b>"&cflogin.name&"</b> been deactivated. Please Contact your Administrator">
+                        <cfset errormsj ="Usuario <cfoutput><b>"&cflogin.name&"</b> ha sido desactivado. Contacta al Administrador">
                         <cfinclude template="loginform.cfm"> 
                         <cfabort> 
                     </cfif>
                 <cfelse>
 
                     <cfoutput> 
-                       <cfset errormsj ="Your UserName and password are not valid, please try again">
+                       <cfset errormsj ="Credenciales incorrectas, intenta de nuevo">
                     </cfoutput>     
                     <cfinclude template="loginform.cfm"> 
                     <cfabort> 
@@ -77,12 +77,12 @@
 
               <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <cfif trim(userRole) eq "admin">
+                    <cfif trim(userRole) eq "1">
                         <li class="nav-item active">
                             <a class="nav-link" href="admin.cfm">Administrador <span class="sr-only">(current)</span></a>
                         </li>
                     </cfif>
-                    <cfif trim(userRole) eq "admin" or trim(userRole) eq "report">
+                    <cfif trim(userRole) eq "1" or trim(userRole) eq "3">
                         <li class="nav-item active">
                             <a class="nav-link" href="reports.cfm" >Reporte <span class="sr-only">(current)</span></a>
                         </li>

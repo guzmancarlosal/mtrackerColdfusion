@@ -1,4 +1,4 @@
-<cfcomponent hint="Add/Edit/Delete Site information" output="false">
+<cfcomponent hint="Add/Edit/Delete Machine information" output="false">
 
     <cfset this.odbc = "">
     
@@ -11,38 +11,39 @@
     </cffunction>
     
 
-    <cffunction access="public" name="addLoc" output="false" returntype="boolean">
+    <cffunction access="public" name="addM" output="false" returntype="boolean">
     	<cfargument name="name" type="string" required="yes">
     	<cfargument name="status" type="string" required="no" default="1">
         <cfargument name="orgid" type="string" required="yes">
         <cfargument name="country" type="string" required="yes">
 		<cfquery name="qAddOrg" datasource="#this.odbc#">
-            Insert into loc (name, status,datecreated,orgID, country)
+            Insert into machine (name, status,datecreated,orgID, country)
             values (N'#arguments.name#',N'#arguments.status#',N'#dateFormat(now(),"yyyy-mm-dd")#',N'#arguments.orgid#',N'#arguments.country#')
         </cfquery>
         <cfreturn true />
     </cffunction>
-    <cffunction access="public" name="getLoc" output="false" returntype="query">
+    <cffunction access="public" name="getM" output="false" returntype="query">
         <cfargument name="id" type="string" required="yes">
         <cfquery name="qGetOrg" datasource="#this.odbc#">
             Select top 1 * 
-            from loc with (nolock)
+            from machine with (nolock)
             where id=N'#arguments.id#'
         </cfquery>
         <cfreturn qGetOrg />
     </cffunction>
-    <cffunction access="public" name="getAllLocs" output="false" returntype="query">
+    <cffunction access="public" name="getAllM" output="false" returntype="query">
         <cfquery name="qGetOrg" datasource="#this.odbc#">
-            Select * 
-            from loc with (nolock)
+            Select machine.id, machine.name, machine.type, machine.status, loc.name as loc 
+            from machine with (nolock)
+            INNER JOIN loc on machine.idLoc = loc.id
         </cfquery>
         <cfreturn qGetOrg />
     </cffunction>
-     <cffunction access="public" name="getAllActiveLocs" output="false" returntype="query">
+     <cffunction access="public" name="getAllActiveM" output="false" returntype="query">
         <cfquery name="qGetOrg" datasource="#this.odbc#">
             Select id, name
-            from loc with (nolock)
-            where status = 0
+            from machine with (nolock)
+            where status = 1;
         </cfquery>
         <cfreturn qGetOrg />
     </cffunction>
@@ -53,7 +54,7 @@
         <cfargument name="orgid" type="string" required="yes">
         <cfargument name="country" type="string" required="yes">
         <cfquery name="qUpdateOrg" datasource="#this.odbc#">
-           Update loc
+           Update machine
            set  name=N'#arguments.name#',
                 status=N'#arguments.status#',
                 country=N'#arguments.country#',

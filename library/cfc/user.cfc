@@ -17,8 +17,40 @@
     	<cfargument name="type" type="string" required="yes">
     	<cfargument name="status" type="string" required="no" default="1">
 		<cfquery name="qAddUser" datasource="#this.odbc#">
-            Insert into user (username, password, type, status)
+            Insert into [user] (username, password, type, status)
             vales ('#arguments.username#','#arguments.password#','#arguments.type#','#arguments.status#')
+        </cfquery>
+        <cfreturn true />
+    </cffunction>
+    <cffunction access="public" name="getUser" output="false" returntype="query">
+        <cfargument name="id" type="string" required="yes">
+        <cfquery name="qGetUser" datasource="#this.odbc#">
+            Select top 1 * 
+            from [user] with (nolock)
+            where id=N'#arguments.id#'
+        </cfquery>
+        <cfreturn qGetUser />
+    </cffunction>
+    <cffunction access="public" name="getAllUsers" output="false" returntype="query">
+        <cfquery name="qGetOrg" datasource="#this.odbc#">
+            Select * 
+            from [user] with (nolock)
+        </cfquery>
+        <cfreturn qGetOrg />
+    </cffunction>
+    <cffunction access="public" name="updateLoc" output="false" returntype="boolean">
+        <cfargument name="id" type="string" required="yes">
+        <cfargument name="username" type="string" required="yes">
+        <cfargument name="status" type="string" required="no" default="1">
+        <cfargument name="password" type="string" required="yes">
+        <cfargument name="type" type="string" required="yes">
+        <cfquery name="qUpdateOrg" datasource="#this.odbc#">
+           Update [user]
+           set  username=N'#arguments.username#',
+                status=N'#arguments.status#',
+                password=N'#arguments.password#',
+                type=N'#arguments.type#'
+            where id = N'#arguments.id#'
         </cfquery>
         <cfreturn true />
     </cffunction>

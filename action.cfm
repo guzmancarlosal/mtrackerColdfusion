@@ -22,4 +22,24 @@
 			<cfset qSite = siteObj.updateLoc(name="#form.name#", status="#form.active#", siteID="#form.siteID#",orgID="#form.orgID#", country="#form.country#")>
 		</cfif>
 	</cfif>
+<cfelseif form.mode eq "userAction">
+	<cfparam name="form.userID" default="">
+	<cfset userObj = createObject("component","library.cfc.user").init(odbc=request.ODBC)>
+	<cfif form.name neq "">
+		<cfif form.userID eq "">
+			<cfset qUser = userObj.addUser()>
+		<cfelse>
+			<cfset qUser = userObj.updateUser()>
+		</cfif>
+	</cfif>
+<cfelseif form.mode eq "mAction">
+	<cfparam name="form.mID" default="">
+	<cfset mObj = createObject("component","library.cfc.machine").init(odbc=request.ODBC)>
+	<cfif form.name neq "">
+		<cfif form.mID eq "">
+			<cfset qUser = mObj.addm()>
+		<cfelse>
+			<cfset qUser = mObj.updatem()>
+		</cfif>
+	</cfif>
 </cfif>

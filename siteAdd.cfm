@@ -85,7 +85,6 @@
 <cfif url.siteID neq "" and isnumeric(url.siteID)>
 	<cfset siteObj = createObject("component","library.cfc.loc").init(odbc=request.ODBC)>
 	<cfset qLoc = siteObj.getLoc(id=url.siteID)>
-	<cfdump var="#qLoc#">
 	<cfset variables.siteName = qLoc.name>
 	<cfset variables.name = qLoc.name>
 	<cfset variables.active = qLoc.status>
