@@ -14,14 +14,14 @@
     <body>
     	<div class="container">
 			
-		 	<h2>Lista de Máquinas</h2>
+		 	<h2><i class="fa fa-cog" aria-hidden="true"></i>  Lista de Máquinas</h2>
 		  	<p><a class="btn btn-success" href="userAdd.cfm" role="button" id="startBtn">Agregar una Máquina</a> <a class="btn btn-danger" href="admin.cfm" role="button" id="startBtn">Regresar</a></p>  
 		  
 		  	<p>Selecciona una Máquina a editar, eliminarla con el boton X</p>         
 			<table class="table">
 			    <thead>
 			      <tr>
-			        <th>ID</th>
+			        
 			        <th>Nombre</th>
 			        <th>tipo</th>
 			        <th>Estatus</th>
@@ -31,8 +31,7 @@
 			    <tbody>
 			    <cfloop query="qMachine">
 			     	<tr>
-			     		<td><a  href="machineAdd.cfm?siteID=#qMachine.id#" role="button" id="startBtn">#qMachine.id#</a></td>
-			     		<td>#qMachine.name#</td>
+			     		<td><a  href="machineAdd.cfm?mdi=#qMachine.id#" role="button" id="startBtn">#qMachine.name# <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 			     		<td>#qMachine.type#</td>
 			     		<td>#qMachine.status#</td>
 			     		<td>#qMachine.loc#</td>

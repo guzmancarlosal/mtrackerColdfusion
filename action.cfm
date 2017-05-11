@@ -1,6 +1,6 @@
 <cfparam name="form.mode" default="">
 <cfparam name="request.ODBC" default="cc_mtracker">
-
+<cfsetting showdebugoutput="true">
 <cfif form.mode eq "orgAction">
 	<cfparam name="form.orgID" default="">
 	<cfset orgObj = createObject("component","library.cfc.org").init(odbc=request.ODBC)>
@@ -24,12 +24,14 @@
 	</cfif>
 <cfelseif form.mode eq "userAction">
 	<cfparam name="form.userID" default="">
+	<cfparam name="form.username" default="">
 	<cfset userObj = createObject("component","library.cfc.user").init(odbc=request.ODBC)>
-	<cfif form.name neq "">
+	<cfif form.username neq "">
 		<cfif form.userID eq "">
-			<cfset qUser = userObj.addUser()>
+			<cfset qUser = userObj.addUser(username=form.username, password=form.username, type=form.type, password=form.password, status=form.status, locList= form.locList, machineList=form.machineList)>
+			
 		<cfelse>
-			<cfset qUser = userObj.updateUser()>
+			<cfset qUser = userObj.updateUser(userID=form.userID,username=form.username, password=form.username, type=form.type, password=form.password, status=form.status, locList= form.locList, machineList=form.machineList)>
 		</cfif>
 	</cfif>
 <cfelseif form.mode eq "mAction">

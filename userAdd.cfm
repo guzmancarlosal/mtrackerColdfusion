@@ -15,7 +15,8 @@
   <cfprocessingdirective pageencoding = "utf-8">
   <link rel="icon" href="img/mTrackericonsmal.png">
 
-  <title>Sitio</title>
+  <title>Usuario</title>
+
 	<script>
 	$(document).ready(function(){
 		$("#sbmBtn").click(function(){
@@ -24,11 +25,13 @@
 		           type: "POST",
 		           url: "action.cfm",
 		           data:  { 
-                    	name : $('#name').val(), 
-                    	userID : $('#userID').val(), 
-                    	orgID : $('#orgID').val(), 
-                    	country : $('#country').val(), 
-                    	active : $('#active').val(), 
+                    	username : $('#username').val(), 
+                    	password: $('#password').val(), 
+                    	type : $('#type').val(), 
+                    	status : $('#status').val(), 
+                    	locList : $('#siteID').val().toString(), 
+                    	machineList : $('#machine').val().toString(), 
+                    	userID : $('#userID').val(),
                     	mode: "userAction"
                    },
 		           success: function(data)
@@ -39,16 +42,16 @@
 	        }
 	    });
 	    $('#backBtn').click(function(){
-	    	$(location).attr('href', 'siteReport.cfm');
+	    	$(location).attr('href', 'userReport.cfm');
 	    });
 	      $('#closeBtn').click(function(){
-	    	$(location).attr('href', 'siteReport.cfm');
+	    	$(location).attr('href', 'userReport.cfm');
 	    });
 	});
 	function validateForm() {
-		if(!$('#name').val()) {
+		if(!$('#username').val()) {
 			alert('El campo NOMBRE DEL USURIO es requerido');
-			$('#name').focus(function() {
+			$('#username').focus(function() {
   				
 			});
 			return false;	
@@ -93,28 +96,38 @@
 
 </head>
 <cfif url.userID neq "" and isnumeric(url.userID)>
-	<cfset siteObj = createObject("component","library.cfc.loc").init(odbc=request.ODBC)>
-	<cfset qLoc = siteObj.getLoc(id=url.userID)>
-	<cfdump var="#qLoc#">
-	<cfset variables.userName = qLoc.name>
-	<cfset variables.name = qLoc.name>
-	<cfset variables.active = qLoc.status>
-	<cfset variables.country = qLoc.country>
-	<cfset variables.orgID = qLoc.orgID>
+	<cfset userObj = createObject("component","library.cfc.user").init(odbc=request.ODBC)>
+	<cfset qLoc = userObj.getUser(id=url.userID)>
+	<cfquery name="qUserMachine" datasource="#request.odbc#">
+		Select * from user_machine where userid='#url.userID#'
+	</cfquery>
+	<cfset variables.machineIDList = valueList(qUserMachine.machineid)>
+	<cfquery name="qUserLoc" datasource="#request.odbc#">
+		Select * from user_loc where idUser='#url.userID#'
+	</cfquery>
+	<cfset variables.siteIDList = valueList(qUserLoc.idloc)>
+	<cfset variables.userName = qLoc.username>
+	<cfset variables.password = qLoc.password>
+	<cfset variables.type = qLoc.type>
+	<cfset variables.status = qLoc.status>
 </cfif>
 <cfset locObj = createObject("component","library.cfc.loc").init(odbc=request.ODBC)>
 <cfset qLocs = locObj.getAllActiveLocs()>
 <cfset mObj = createObject("component","library.cfc.machine").init(odbc=request.ODBC)>
 <cfset qMach = mObj.getAllActiveM()>
+<cfquery name="qRole" datasource="#request.odbc#">
+	Select * from role where status=1
+</cfquery>
+
 
 <body >
 	<cfoutput>
 	<div class="container">
 		<form name="addLog" id="addLog" class="form-horizontal">
-			<h1 class="text-center">#variables.userName#</h1>
+			<h1 class="text-center"><i class="fa fa-users" aria-hidden="true"></i> #variables.userName#</h1>
 		
 			<div class="form-group form-group-lg">
-				<input class="form-control input-lg" id="name" placeholder="Nombre del Usuario" type="text" value ="#variables.name#" required>
+				<input class="form-control input-lg" id="username" placeholder="Nombre del Usuario" type="text" value ="#variables.userName#" required>
 			</div>
 			
 			<div class="form-group form-group-lg">
@@ -123,26 +136,38 @@
 			<div class="form-group form-group-lg">
 				<input class="form-control input-lg" id="password2" placeholder="Confirmar Contraseña" type="password" value ="#variables.password#" required>
 			</div>
+
 			<div class="form-group form-group-lg">
+				<b>Tipo de Usuario</b>
+				<select class="form-control input-lg" id="type" placeholder="Tipo" required >
+					<option value="" selected disabled <cfif variables.type eq "">selected</cfif>></option>
+					<cfloop query="qRole">
+						<option value="#qRole.id#" <cfif variables.type eq qRole.id>selected</cfif>>#qRole.name#</option>
+					</cfloop>
+					
+				</select>
+			</div>
+			<div class="form-group form-group-lg">
+				<b>Sitios</b>
 				<select class="form-control input-lg" id="siteID" placeholder="Sitio" required multiple>
-					<option value="" selected disabled <cfif variables.siteIDList eq "">selected</cfif>>Sitio</option>
 					<cfloop query="qLocs">
-						<option value="#qLocs.id#" <cfif variables.siteIDList eq qLocs.id>selected</cfif>>#qLocs.name#</option>
+						<option value="#qLocs.id#"  <cfif listfind(variables.siteIDList,qLocs.id) >selected</cfif>>#qLocs.name#</option>
 					</cfloop>
 					
 				</select>
 			</div>
 			<div class="form-group form-group-lg">
+				<b>Máquinas</b>
 				<select class="form-control input-lg" id="machine" placeholder="Máquinas" required multiple>
-					<option value="" selected disabled <cfif variables.machineIDList eq "">selected</cfif>>Sitio</option>
 					<cfloop query="qMach">
-						<option value="#qMach.id#" <cfif variables.machineIDList eq qMach.id>selected</cfif>>#qMach.name#</option>
+						<option value="#qMach.id#" <cfif listfind(variables.machineIDList,qMach.id) >selected</cfif>>#qMach.name#</option>
 					</cfloop>
 					
 				</select>
 			</div>
 			<div class="form-group form-group-lg">
-				<select class="form-control input-lg" id="active" placeholder="Status" required>
+				<b>Estatus</b>
+				<select class="form-control input-lg" id="status" placeholder="Status" required>
 					<option value="1" <cfif variables.active eq "1">selected</cfif>>Activo</option>
 					<option value="0" <cfif variables.active eq "0">selected</cfif>>Inactivo</option>
 				</select>

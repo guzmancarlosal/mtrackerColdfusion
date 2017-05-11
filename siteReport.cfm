@@ -14,7 +14,7 @@
     <body>
     	<div class="container">
 			
-		 	<h2>Lista de Sitios</h2>
+		 	<h2><i class="fa fa-area-chart" aria-hidden="true"></i> Lista de Sitios</h2>
 		  	<p><a class="btn btn-success" href="siteAdd.cfm" role="button" id="startBtn">Agregar un Sitio</a> <a class="btn btn-danger" href="admin.cfm" role="button" id="startBtn">Regresar</a></p>  
 		  
 		  	<p>Selecciona un Sitio a editar, eliminala con el boton X</p>         
@@ -22,7 +22,6 @@
 			    <thead>
 			      <tr>
 			        <th>ID</th>
-			        <th>Nombre</th>
 			        <th>Organizacion</th>
 			        <th>Estatus</th>
 			        <th>Fecha Creado</th>
@@ -32,10 +31,9 @@
 			    <tbody>
 			    <cfloop query="qLocs">
 			     	<tr>
-			     		<td><a  href="siteAdd.cfm?siteID=#qLocs.id#" role="button" id="startBtn">#qLocs.id#</a></td>
-			     		<td>#qLocs.name#</td>
-			     		<td>#qLocs.orgID#</td>
-			     		<td>#qLocs.status#</td>
+			     		<td><a  href="siteAdd.cfm?siteID=#qLocs.id#" role="button" id="startBtn">#qLocs.name# <i class="fa fa-pencil-square-o" aria-hidden="true"></a></td>
+			     		<td>#qlocs.orgid#</td>
+			     		<td><cfif qLocs.status eq 1>Activo<cfelse>Inactivo</cfif></td>
 			     		<td>#qLocs.dateCreated#</td>
 			     		<td>#qLocs.country#</td>
 			     	<tr>

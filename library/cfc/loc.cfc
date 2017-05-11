@@ -42,7 +42,7 @@
         <cfquery name="qGetOrg" datasource="#this.odbc#">
             Select id, name
             from loc with (nolock)
-            where status = 0
+            where status = 1
         </cfquery>
         <cfreturn qGetOrg />
     </cffunction>

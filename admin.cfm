@@ -5,36 +5,47 @@
       <cfprocessingdirective pageencoding = "utf-8">
       <title>MTracker</title>
       <link href="css/justified-nav.css" rel="stylesheet">
+      <style>
+       button { 
+		  width: 100%;
+		}
+      </style>
     </head>
     <body>
     	<div class="container">
 	    	<!-- Jumbotron -->
+	    	
 	    	<div class="jumbotron">
 		    	<h1>#application.applicationname# Administración</h1>
 		    	<p class="lead">Selecciona el modulo a Administrar</p>
 	   		</div>
 		    <div class="row">
-				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="userReport.cfm" role="button" id="startBtn">Usuario</a></p>
+				<div class="col-sm-3 text-center">
+					<p><a class="btn btn-lg btn-success" href="userReport.cfm" role="button" id="startBtn"><i class="fa fa-users" aria-hidden="true"></i> Usuario</a></p>
+				</div>
+				<div class="col-sm-3 text-center">
 					<p>Agregar, modificar, eliminar datos de usuarios</p>
 				</div>
-				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="machineReport.cfm" role="button" id="startBtn">Máquina</a></p>
+				<div class="col-sm-3 text-center">
+					<p><a class="btn btn-lg btn-success" href="machineReport.cfm" role="button" id="startBtn"><i class="fa fa-cog" aria-hidden="true"></i> Máquina</a></p>
+				</div>
+				<div class="col-sm-3 text-center">
 					<p>Agregar, modificar, eliminar Máquinas</p>
 				</div>
-				<div class="col-sm-4 text-center">
-					<p><a class="btn btn-lg btn-success" href="userReport.cfm" role="button" id="startBtn">Roles</a></p>
-					<p>Configuración de reportes</p>
-				</div>
-
+				
 			</div>
+
 			<div class="row">
-				<div class="col-sm-6 text-center">
-					<p><a class="btn btn-lg btn-success" href="orgReport.cfm" role="button" id="startBtn">Organización</a></p>
-					<p>Agregar, modificar, eliminar datos de Organizacion</p>
+				<div class="col-sm-3 text-center">
+					<p><a class="btn btn-lg btn-success " href="orgReport.cfm" role="button" id="startBtn"><i class="fa fa-sitemap" aria-hidden="true"></i> Organización</a></p>
 				</div>
-				<div class="col-sm-6 text-center">
-					<p><a class="btn btn-lg btn-success" href="siteReport.cfm" role="button" id="startBtn">Sitio</a></p>
+				<div class="col-sm-3 text-center">
+					<p>Agregar, modificar, eliminar datos de Organización</p>
+				</div>
+				<div class="col-sm-3 text-center">
+					<p><a class="btn btn-lg btn-success" href="siteReport.cfm" role="button" id="startBtn"><i class="fa fa-area-chart" aria-hidden="true"></i> Sitio</a></p>
+				</div>
+				<div class="col-sm-3 text-center">
 					<p>Agregar, modificar, eliminar datos de Sitios</p>
 				</div>
 			</div>

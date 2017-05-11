@@ -57,6 +57,7 @@
             <script src="js/jquery-3.2.1.min.js" ></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
+            <link rel="stylesheet" href="fa/css/font-awesome.min.css">
             <cfinclude template="verification.cfm">
             <style>
 
@@ -79,12 +80,12 @@
                 <ul class="navbar-nav mr-auto">
                     <cfif trim(userRole) eq "1">
                         <li class="nav-item active">
-                            <a class="nav-link" href="admin.cfm">Administrador <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="admin.cfm"><i class="fa fa-cubes" aria-hidden="true"></i> Administrador <span class="sr-only">(current)</span></a>
                         </li>
                     </cfif>
                     <cfif trim(userRole) eq "1" or trim(userRole) eq "3">
                         <li class="nav-item active">
-                            <a class="nav-link" href="reports.cfm" >Reporte <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="reports.cfm" ><i class="fa fa-bar-chart" aria-hidden="true"></i> Reporte <span class="sr-only">(current)</span></a>
                         </li>
                     </cfif>
                 </ul>
