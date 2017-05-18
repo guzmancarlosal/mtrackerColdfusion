@@ -1,9 +1,16 @@
+<Cfif #GetUserRoles()#  neq 4 >
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfparam name="url.orgID" default="">
 <cfparam name="variables.name" default="">
 <cfparam name="variables.active" default="">
 <cfparam name="variables.orgName" default="Agregar Organización">
 <cfparam name="request.ODBC" default="cc_mtracker">
-
+<Cfif #GetUserRoles()#  eq 4>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <!DOCTYPE html>
 
 <html>
@@ -49,7 +56,7 @@
 		}
 		if($('#active').val()=="") {
 			alert('El campo ESTATUS DE LA ORANIZACIÓN es requerido');
-			$('#name').focus(function() {
+			$('#active').focus(function() {
   				
 			});
 			return false;	
@@ -78,7 +85,7 @@
 	<cfoutput>
 	<div class="container">
 		<form name="addLog" id="addLog" class="form-horizontal">
-			<h1 class="text-center">#variables.orgName#</h1>
+			<h1 class="text-center"><i class="fa fa-sitemap" aria-hidden="true"></i> #variables.orgName#</h1>
 		
 			<div class="form-group form-group-lg">
 				<input class="form-control input-lg" id="name" placeholder="Nombre de la Organización" type="text" value ="#variables.name#" required>

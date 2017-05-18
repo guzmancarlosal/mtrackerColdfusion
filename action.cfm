@@ -39,9 +39,9 @@
 	<cfset mObj = createObject("component","library.cfc.machine").init(odbc=request.ODBC)>
 	<cfif form.name neq "">
 		<cfif form.mID eq "">
-			<cfset qUser = mObj.addm()>
+			<cfset qUser = mObj.addm(name=form.name, status=form.status, idLoc=form.idLoc, type=form.type)>
 		<cfelse>
-			<cfset qUser = mObj.updatem()>
+			<cfset qUser = mObj.updatem(name=form.name, status=form.status, idLoc=form.idLoc, type=form.type,machineid=form.mID, capacity=form.capacity)>
 		</cfif>
 	</cfif>
 </cfif>

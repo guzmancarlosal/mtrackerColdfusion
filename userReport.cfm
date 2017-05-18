@@ -1,6 +1,10 @@
+<Cfif #GetUserRoles()#  neq 4 and #GetUserRoles()#  neq 1>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfparam name="request.ODBC" default="cc_mtracker">
 <cfset userObj = createObject("component","library.cfc.user").init(odbc=request.ODBC)>
-<cfset qUsers = userObj.getAllUsers()>
+<cfset qUsers = userObj.getAllUsers(userRole=GetUserRoles())>
 <cfquery name="qRole" datasource="#request.odbc#">
 	Select * from role where status=1
 </cfquery>
@@ -33,7 +37,7 @@
 			    <tbody>
 			    <cfloop query="qUsers">
 			     	<tr>
-			     		<td><a  href="userAdd.cfm?userID=#qUsers.id#" role="button" id="startBtn">#qUsers.username# <i class="fa fa-pencil-square-o" aria-hidden="true"></a></td>
+			     		<td><a  href="userAdd.cfm?userID=#qUsers.id#" role="button" id="startBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> #qUsers.username# </a></td>
 			     		<td><cfif qUsers.password neq "">***********<cfelse>sin Password</cfif></td>
 			     		<td><cfif qUsers.status eq 1 >Activo<cfelse>Inactivo</cfif></td>
 			     		<td>

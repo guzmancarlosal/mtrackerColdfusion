@@ -1,3 +1,7 @@
+<Cfif #GetUserRoles()#  neq 4>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfparam name="url.siteID" default="">
 <cfparam name="variables.name" default="">
 <cfparam name="variables.active" default="">
@@ -97,7 +101,7 @@
 	<cfoutput>
 	<div class="container">
 		<form name="addLog" id="addLog" class="form-horizontal">
-			<h1 class="text-center">#variables.siteName#</h1>
+			<h1 class="text-center"><i class="fa fa-area-chart" aria-hidden="true"></i> #variables.siteName#</h1>
 		
 			<div class="form-group form-group-lg">
 				<input class="form-control input-lg" id="name" placeholder="Nombre del Sitio" type="text" value ="#variables.name#" required>

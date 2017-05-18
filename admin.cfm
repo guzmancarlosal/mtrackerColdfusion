@@ -1,4 +1,9 @@
+<Cfif #GetUserRoles()#  neq 4 and #GetUserRoles()#  neq 1>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfoutput>
+
   <!DOCTYPE html>
   <html>
     <head>
@@ -34,21 +39,23 @@
 				</div>
 				
 			</div>
-
-			<div class="row">
-				<div class="col-sm-3 text-center">
-					<p><a class="btn btn-lg btn-success " href="orgReport.cfm" role="button" id="startBtn"><i class="fa fa-sitemap" aria-hidden="true"></i> Organización</a></p>
+			<Cfif #GetUserRoles()#  eq 4>
+				<div class="row">
+					<div class="col-sm-3 text-center">
+						<p><a class="btn btn-lg btn-success " href="orgReport.cfm" role="button" id="startBtn"><i class="fa fa-sitemap" aria-hidden="true"></i> Organización</a></p>
+					</div>
+					<div class="col-sm-3 text-center">
+						<p>Agregar, modificar, eliminar datos de Organización</p>
+					</div>
+					<div class="col-sm-3 text-center">
+						<p><a class="btn btn-lg btn-success" href="siteReport.cfm" role="button" id="startBtn"><i class="fa fa-area-chart" aria-hidden="true"></i> Sitio</a></p>
+					</div>
+					<div class="col-sm-3 text-center">
+						<p>Agregar, modificar, eliminar datos de Sitios</p>
+					</div>
 				</div>
-				<div class="col-sm-3 text-center">
-					<p>Agregar, modificar, eliminar datos de Organización</p>
-				</div>
-				<div class="col-sm-3 text-center">
-					<p><a class="btn btn-lg btn-success" href="siteReport.cfm" role="button" id="startBtn"><i class="fa fa-area-chart" aria-hidden="true"></i> Sitio</a></p>
-				</div>
-				<div class="col-sm-3 text-center">
-					<p>Agregar, modificar, eliminar datos de Sitios</p>
-				</div>
-			</div>
+			</Cfif>
+			
 		</div>
 		<div class="container">
 			<div class="col-sm-4 text-center">&nbsp;</div>

@@ -1,3 +1,7 @@
+<Cfif #GetUserRoles()#  neq 4>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfparam name="request.ODBC" default="cc_mtracker">
 <cfset locObj = createObject("component","library.cfc.loc").init(odbc=request.ODBC)>
 <cfset qLocs = locObj.getAllLocs()>
@@ -31,7 +35,7 @@
 			    <tbody>
 			    <cfloop query="qLocs">
 			     	<tr>
-			     		<td><a  href="siteAdd.cfm?siteID=#qLocs.id#" role="button" id="startBtn">#qLocs.name# <i class="fa fa-pencil-square-o" aria-hidden="true"></a></td>
+			     		<td><a  href="siteAdd.cfm?siteID=#qLocs.id#" role="button" id="startBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> #qLocs.name#</a></td>
 			     		<td>#qlocs.orgid#</td>
 			     		<td><cfif qLocs.status eq 1>Activo<cfelse>Inactivo</cfif></td>
 			     		<td>#qLocs.dateCreated#</td>

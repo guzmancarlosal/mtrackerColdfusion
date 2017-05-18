@@ -18,26 +18,27 @@
     	<cfargument name="status" type="string" required="no" default="1">
         <cfargument name="locList" type="string" required="no" default="">
         <cfargument name="machineList" type="string" required="no" default="">
-
-		<cfquery name="qAddUser" datasource="#this.odbc#">
-            Insert into [user] (username, password, type, status)
-            values ('#arguments.username#','#arguments.password#','#arguments.type#','#arguments.status#');
-        </cfquery>
-        <cfquery name="qGetUser" datasource="#this.odbc#">
-            SELECT id FROM [user] with (nolock) WHERE username=N'#arguments.username#' and password = N'#arguments.password#'
-        </cfquery>
-        <cfloop list="#locList#" index="i">
-            <cfquery name="qAddUserLoc" datasource="#this.odbc#">
-                Insert into [user_loc] (idUser, idLoc)
-                values ('#qGetUser.id#','#i#')
+        <cftransaction>
+    		<cfquery name="qAddUser" datasource="#this.odbc#">
+                Insert into [user] (username, password, type, status)
+                values ('#arguments.username#','#arguments.password#','#arguments.type#','#arguments.status#');
             </cfquery>
-        </cfloop>
-        <cfloop list="#machineList#" index="i">
-            <cfquery name="qAddUserLoc" datasource="#this.odbc#">
-                Insert into [user_machine] (userID, machineID)
-                values ('#qGetUser.id#','#i#')
+            <cfquery name="qGetUser" datasource="#this.odbc#">
+                SELECT id FROM [user] with (nolock) WHERE username=N'#arguments.username#' and password = N'#arguments.password#'
             </cfquery>
-        </cfloop>
+            <cfloop list="#locList#" index="i">
+                <cfquery name="qAddUserLoc" datasource="#this.odbc#">
+                    Insert into [user_loc] (idUser, idLoc)
+                    values ('#qGetUser.id#','#i#')
+                </cfquery>
+            </cfloop>
+            <cfloop list="#machineList#" index="i">
+                <cfquery name="qAddUserLoc" datasource="#this.odbc#">
+                    Insert into [user_machine] (userID, machineID)
+                    values ('#qGetUser.id#','#i#')
+                </cfquery>
+            </cfloop>
+         </cftransaction>
         <cfreturn true />
     </cffunction>
     <cffunction access="public" name="getUser" output="false" returntype="query">
@@ -50,9 +51,11 @@
         <cfreturn qGetUser />
     </cffunction>
     <cffunction access="public" name="getAllUsers" output="false" returntype="query">
+        <cfargument name="userRole" type="string" required="no">
         <cfquery name="qGetOrg" datasource="#this.odbc#">
             Select * 
             from [user] with (nolock)
+            where type <> 4
         </cfquery>
         <cfreturn qGetOrg />
     </cffunction>
@@ -80,27 +83,29 @@
         <cfargument name="status" type="string" required="no" default="1">
         <cfargument name="locList" type="string" required="no" default="">
         <cfargument name="machineList" type="string" required="no" default="">
-        <cfquery name="qUpdateUser" datasource="#this.odbc#">
-            Update [user] 
-            set username='#arguments.username#', password='#arguments.password#', type='#arguments.type#', status='#arguments.status#'
-            where id='#arguments.userID#'
-        </cfquery>
-        <cfquery name="qDeleteUserLoc" datasource="#this.odbc#">
-            Delete FROM [user_machine] where userID = '#arguments.userID#'
-            Delete FROM [user_loc] where idUser = '#arguments.userID#'
-        </cfquery>
-        <cfloop list="#locList#" index="i">
-            <cfquery name="qAddUserLoc" datasource="#this.odbc#">
-                Insert into [user_loc] (idUser, idLoc)
-                values ('#arguments.userID#','#i#')
+        <cftransaction>
+            <cfquery name="qUpdateUser" datasource="#this.odbc#">
+                Update [user] 
+                set username='#arguments.username#', password='#arguments.password#', type='#arguments.type#', status='#arguments.status#'
+                where id='#arguments.userID#'
             </cfquery>
-        </cfloop>
-        <cfloop list="#machineList#" index="i">
-            <cfquery name="qAddUserLoc" datasource="#this.odbc#">
-                Insert into [user_machine] (userID, machineID)
-                values ('#arguments.userID#','#i#')
+            <cfquery name="qDeleteUserLoc" datasource="#this.odbc#">
+                Delete FROM [user_machine] where userID = '#arguments.userID#'
+                Delete FROM [user_loc] where idUser = '#arguments.userID#'
             </cfquery>
-        </cfloop>
+            <cfloop list="#locList#" index="i">
+                <cfquery name="qAddUserLoc" datasource="#this.odbc#">
+                    Insert into [user_loc] (idUser, idLoc)
+                    values ('#arguments.userID#','#i#')
+                </cfquery>
+            </cfloop>
+            <cfloop list="#machineList#" index="i">
+                <cfquery name="qAddUserLoc" datasource="#this.odbc#">
+                    Insert into [user_machine] (userID, machineID)
+                    values ('#arguments.userID#','#i#')
+                </cfquery>
+            </cfloop>
+        </cftransaction>
         <cfreturn true />
     </cffunction>
 </cfcomponent>

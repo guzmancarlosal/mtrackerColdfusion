@@ -1,3 +1,7 @@
+<Cfif #GetUserRoles()#  neq 4 and #GetUserRoles()#  neq 1>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfparam name="url.userId" default="">
 <cfparam name="variables.name" default="">
 <cfparam name="variables.active" default="">
@@ -116,7 +120,7 @@
 <cfset mObj = createObject("component","library.cfc.machine").init(odbc=request.ODBC)>
 <cfset qMach = mObj.getAllActiveM()>
 <cfquery name="qRole" datasource="#request.odbc#">
-	Select * from role where status=1
+	Select * from role where status=1 and id<>'4'
 </cfquery>
 
 

@@ -1,8 +1,15 @@
 <cfparam name="request.ODBC" default="cc_mtracker">
 <cfquery name="qGetMachine" datasource="#request.ODBC#">
-  SELECT * from machine
-  WHERE status = 1
+  select machine.id as mid, machine.name, u.id as uid, l.name as locationname
+  From machine with (nolock)
+  inner join loc l on machine.idLoc = l.id
+  inner join user_machine with (nolock) on machine.id = user_machine.machineID
+  inner join [user] u  with (nolock) on u.id=user_machine.userid
+  where u.username='#GetAuthUser()#'
 </cfquery>
+
+
+
 <cfoutput>
   <!DOCTYPE html>
   <html>
@@ -17,12 +24,19 @@
       <div class="jumbotron">
         <h1>Bienvenido a #application.applicationname#</h1>
         <p class="lead">Selecciona la máquina para iniciar la operación!</p>
-        <select id="machineid" name="machineid" class="form-control">
-          <cfloop query="#qGetMachine#">
-            <option value="#qGetMachine.id#">#qGetMachine.name#
-          </cfloop>
-        </select><br>
-        <p><a class="btn btn-lg btn-success" href="addLog.cfm?machineid=1" role="button" id="startBtn">Empezar</a></p>        
+        <cfif qGetMachine.recordcount>
+          <select id="machineid" name="machineid" class="form-control">
+            <cfloop query="#qGetMachine#">
+              <option value="#qGetMachine.mid#">#qGetMachine.name#
+            </cfloop>
+          </select><br>
+           <p><a class="btn btn-lg btn-success" href="##" role="button" id="startBtn">Empezar</a></p>
+        <cfelse>
+          <br>
+          <div style="color:red">No has sido asignado a ninguna Operación, contacta al administrador.</div>
+          <br>
+        </cfif>
+               
       </div>
       <!-- Site footer -->
       <footer class="footer">
@@ -34,3 +48,11 @@
     </body>
   </html>
 </cfoutput>
+<script>
+  $(document).ready(function(){
+    $("#startBtn").click(function(){
+      $(window).attr('location','addLog.cfm?machineid='+$('#machineid').val()+'&userid=<cfoutput>#qGetMachine.uid#</cfoutput>')
+    });
+  });
+</script>
+<cfsetting showdebugoutput="yes">

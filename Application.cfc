@@ -78,12 +78,12 @@
 
               <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <cfif trim(userRole) eq "1">
+                    <cfif trim(userRole) eq "1" or  trim(userRole) eq "4">
                         <li class="nav-item active">
                             <a class="nav-link" href="admin.cfm"><i class="fa fa-cubes" aria-hidden="true"></i> Administrador <span class="sr-only">(current)</span></a>
                         </li>
                     </cfif>
-                    <cfif trim(userRole) eq "1" or trim(userRole) eq "3">
+                    <cfif trim(userRole) eq "1" or trim(userRole) eq "3" or trim(userRole) eq "4">
                         <li class="nav-item active">
                             <a class="nav-link" href="reports.cfm" ><i class="fa fa-bar-chart" aria-hidden="true"></i> Reporte <span class="sr-only">(current)</span></a>
                         </li>

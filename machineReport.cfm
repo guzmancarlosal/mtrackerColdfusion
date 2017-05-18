@@ -1,3 +1,7 @@
+<Cfif #GetUserRoles()#  neq 4 and #GetUserRoles()#  neq 1>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfparam name="request.ODBC" default="cc_mtracker">
 <cfset uObj = createObject("component","library.cfc.machine").init(odbc=request.ODBC)>
 <cfset qMachine = uObj.getAllm()>
@@ -15,7 +19,7 @@
     	<div class="container">
 			
 		 	<h2><i class="fa fa-cog" aria-hidden="true"></i>  Lista de Máquinas</h2>
-		  	<p><a class="btn btn-success" href="userAdd.cfm" role="button" id="startBtn">Agregar una Máquina</a> <a class="btn btn-danger" href="admin.cfm" role="button" id="startBtn">Regresar</a></p>  
+		  	<p><a class="btn btn-success" href="machineAdd.cfm" role="button" id="startBtn">Agregar una Máquina</a> <a class="btn btn-danger" href="admin.cfm" role="button" id="startBtn">Regresar</a></p>  
 		  
 		  	<p>Selecciona una Máquina a editar, eliminarla con el boton X</p>         
 			<table class="table">
@@ -26,15 +30,17 @@
 			        <th>tipo</th>
 			        <th>Estatus</th>
 			        <th>Sitio</th>
+			        <th>Capacidad por hora</th>
 			      </tr>
 			    </thead>
 			    <tbody>
 			    <cfloop query="qMachine">
 			     	<tr>
-			     		<td><a  href="machineAdd.cfm?mdi=#qMachine.id#" role="button" id="startBtn">#qMachine.name# <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+			     		<td><a  href="machineAdd.cfm?mID=#qMachine.id#" role="button" id="startBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> #qMachine.name# </a></td>
 			     		<td>#qMachine.type#</td>
-			     		<td>#qMachine.status#</td>
+			     		<td><cfif qMachine.status eq 1>Activo<cfelse>Inactivo</cfif></td>
 			     		<td>#qMachine.loc#</td>
+			     		<td>#qMachine.capacity#</td>
 			     	<tr>
 			     </cfloop>
 			    </tbody>

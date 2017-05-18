@@ -1,6 +1,14 @@
+<Cfif #GetUserRoles()#  neq 4>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfparam name="request.ODBC" default="cc_mtracker">
 <cfset orgObj = createObject("component","library.cfc.org").init(odbc=request.ODBC)>
 <cfset qOrgs = orgObj.getAllOrgs()>
+<Cfif #GetUserRoles()#  eq 4>
+	<cfinclude template="deny.cfm">
+	<cfabort>
+</Cfif>
 <cfoutput>
   <!DOCTYPE html>
   <html>
@@ -28,7 +36,7 @@
 			    <tbody>
 			    <cfloop query="qOrgs">
 			     	<tr>
-			     		<td><a  href="orgAdd.cfm?orgID=#qOrgs.id#" role="button" id="startBtn">#qOrgs.name# <i class="fa fa-pencil-square-o" aria-hidden="true"></a></td>
+			     		<td><a href="orgAdd.cfm?orgID=#qOrgs.id#" role="button" id="startBtn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> #qOrgs.name# </a></td>
 			     		<td><cfif qOrgs.status eq 1>Activa<cfelse>Inactiva</cfif></td>
 			     		<td>#dateformat(qOrgs.dateCreated,"dd-mmm-yyyy")#</td>
 			     	<tr>
