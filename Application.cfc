@@ -19,7 +19,7 @@
                     <h2>You must enter text in both the User Name and Password fields. 
                     </h2> 
                 </cfoutput> 
-                <cfinclude template="loginform.cfm"> 
+                <cfinclude template="loginform.cfm">
                 <cfabort> 
             <cfelse> 
 
@@ -51,7 +51,8 @@
         </cfif> 
     </cflogin> 
  
-    <cfif GetAuthUser() NEQ ""> 
+    <cfif GetAuthUser() NEQ "">
+
             <cfoutput>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
             <script src="js/jquery-3.2.1.min.js" ></script>
@@ -59,6 +60,7 @@
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" ></script>
             <link rel="stylesheet" href="fa/css/font-awesome.min.css">
             <cfinclude template="verification.cfm">
+
             <style>
 
                 .bg-inverse {
@@ -85,7 +87,7 @@
                     </cfif>
                     <cfif trim(userRole) eq "1" or trim(userRole) eq "3" or trim(userRole) eq "4">
                         <li class="nav-item active">
-                            <a class="nav-link" href="reports.cfm" ><i class="fa fa-bar-chart" aria-hidden="true"></i> Reporte <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="reports.cfm" ><i class="fa fa-bar-chart" aria-hidden="true"></i> Reportes <span class="sr-only">(current)</span></a>
                         </li>
                     </cfif>
                 </ul>

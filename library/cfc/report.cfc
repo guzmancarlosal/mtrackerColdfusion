@@ -21,13 +21,10 @@
         <cfargument name="userID" type="string" required="no">
         <cfparam name="local.idDescription" default="">
         <cftransaction>
-            <cfif arguments.comments neq "">
-                
-                    
-               
+            <cfif arguments.comments neq "">               
                 <cfquery name="qAddDesc" datasource="#this.odbc#">
                     Insert into description (description)
-                    values (N'#arguments.comments#')
+                    values (<cfqueryparam value = arguments.comments cfsqltype="cf_sql_varchar">)
                 </cfquery>
                 <cfquery name="qGetID" datasource="#this.odbc#">
                     SELECT max(id) as id from description with (nolock) where description like '#left(arguments.comments, 5)#%'
@@ -36,7 +33,8 @@
             </cfif>
     		<cfquery name="qAddlog" datasource="#this.odbc#">
                 Insert into log (idusuario, idMachine,time, status, idDescription, itemsproduced, gooditems)
-                values (N'#arguments.userID#',N'#arguments.idMachine#',#now()#,'#machineStatus#','#local.idDescription#','#pie1#', '#pie2#')
+                values (<cfqueryparam value = "#arguments.userID#" cfsqltype="cf_sql_varchar">,<cfqueryparam value = "#arguments.idMachine#" cfsqltype="cf_sql_varchar">,#now()#,'#machineStatus#','#local.idDescription#',
+                    <cfqueryparam value = "#pie1#" cfsqltype="cf_sql_varchar">, <cfqueryparam value = "#pie2#" cfsqltype="cf_sql_varchar">)
             </cfquery>
         </cftransaction>
         <cfreturn true />

@@ -9,7 +9,10 @@
 </cfquery>
 <cfset lObj = createObject("component","library.cfc.report").init(odbc=request.ODBC)>
 <cfset qgetLastLog =lObj.getLastLog(id=url.machineid)>
-
+<cfset uObj = createObject("component","library.cfc.user").init(odbc=request.ODBC)>
+<cfset qSiteAdminList = uObj.getSiteUserRoleList(id=url.machineid, role="Admin")>
+<cfset uNameList=valueList(qSiteAdminList.username, ",")>
+<cfset uMailList=valueList(qSiteAdminList.email, ",")>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +50,11 @@
                     	pie1 : $('#pie1').val(), 
                     	pie2 : $('#pie2').val(), 
                     	comments : $('#comments').val(),
-                    	idUser : $('#idUser').val()
+                    	idUser : $('#idUser').val(),
+                    	notification : $('#notification').val(),
+                    	notificationEmail : $('#notificationEmail').val(),
+                    	machineName : $('#machineName').val(), 
+                    	machineCapacity: $('#machineCapacity').val()
                    },
 		           success: function(data)
 		           {
@@ -124,6 +131,17 @@
 			<div class="form-group form-group-lg ">
 				<textarea class="form-control input-lg" placeholder="Comentarios" id="comments"></textarea>
 			</div>
+			<div class="form-group form-group-lg ">
+				<b>Notificar a <cfloop list="#uNameList#" index="i">#i#</cfloop>?</b> (vía email)
+				<select class="form-control input-lg" id="notification" placeholder="Status">
+					<option value ="1">Si</option>
+					<option value ="0">No</option>
+				</select>
+				<input type="hidden" id="notificationEmail" name="notificationEmail" value="#uMailList#">
+				<input type="hidden" id="machineName" name="machineName" value="#qGetMachine.name#">
+				<input type="hidden" id="machineCapacity" name="machineCapacity" value="#qGetMachine.capacity#">
+				
+			</div>
 			<div class="form-group form-group-lg text-center">
 				<button class="btn btn-success btn-lg" data-toggle="modal" id="sbmBtn">
 					Actualizar
@@ -132,7 +150,7 @@
 			</div>
 			<cfif qgetLastLog.recordcount>
 				<div class="alert alert-danger text-center" role="alert">
-					Última Actualización fue enviada #dateformat(qgetLastLog.time)# a las #TimeFormat(qgetLastLog.time, "hh:mm:sstt")#<br>
+					Última Actualización fue enviada <b>#dateformat(qgetLastLog.time)#</b> a las <b>#TimeFormat(qgetLastLog.time, "hh:mm:sstt")#</b><br>
 
 				</div>
 			</cfif>

@@ -21,21 +21,25 @@
         <cftransaction>
     		<cfquery name="qAddUser" datasource="#this.odbc#">
                 Insert into [user] (username, password, type, status)
-                values ('#arguments.username#','#arguments.password#','#arguments.type#','#arguments.status#');
+                values (<cfqueryparam value = arguments.username cfsqltype="cf_sql_varchar">,
+                        <cfqueryparam value = arguments.password cfsqltype="cf_sql_varchar">,
+                        <cfqueryparam value = arguments.type cfsqltype="cf_sql_varchar">,
+                        <cfqueryparam value = arguments.status cfsqltype="cf_sql_varchar">);
             </cfquery>
             <cfquery name="qGetUser" datasource="#this.odbc#">
-                SELECT id FROM [user] with (nolock) WHERE username=N'#arguments.username#' and password = N'#arguments.password#'
+                SELECT id FROM [user] with (nolock) WHERE username=<cfqueryparam value = arguments.username cfsqltype="cf_sql_varchar"> 
+                and password = <cfqueryparam value = arguments.password cfsqltype="cf_sql_varchar">
             </cfquery>
             <cfloop list="#locList#" index="i">
                 <cfquery name="qAddUserLoc" datasource="#this.odbc#">
                     Insert into [user_loc] (idUser, idLoc)
-                    values ('#qGetUser.id#','#i#')
+                    values (<cfqueryparam value = qGetUser.id cfsqltype="cf_sql_varchar">,'#i#')
                 </cfquery>
             </cfloop>
             <cfloop list="#machineList#" index="i">
                 <cfquery name="qAddUserLoc" datasource="#this.odbc#">
                     Insert into [user_machine] (userID, machineID)
-                    values ('#qGetUser.id#','#i#')
+                    values (<cfqueryparam value = qGetUser.id cfsqltype="cf_sql_varchar">,'#i#')
                 </cfquery>
             </cfloop>
          </cftransaction>
@@ -46,7 +50,7 @@
         <cfquery name="qGetUser" datasource="#this.odbc#">
             Select top 1 * 
             from [user] with (nolock)
-            where id=N'#arguments.id#'
+            where id=<cfqueryparam value = arguments.id cfsqltype="cf_sql_varchar">
         </cfquery>
         <cfreturn qGetUser />
     </cffunction>
@@ -67,11 +71,11 @@
         <cfargument name="type" type="string" required="yes">
         <cfquery name="qUpdateOrg" datasource="#this.odbc#">
            Update [user]
-           set  username=N'#arguments.username#',
-                status=N'#arguments.status#',
-                password=N'#arguments.password#',
-                type=N'#arguments.type#'
-            where id = N'#arguments.id#'
+           set  username=<cfqueryparam value = arguments.username cfsqltype="cf_sql_varchar">,
+                status=<cfqueryparam value = arguments.status cfsqltype="cf_sql_varchar">,
+                password=<cfqueryparam value = arguments.password cfsqltype="cf_sql_varchar">,
+                type=<cfqueryparam value = arguments.type cfsqltype="cf_sql_varchar">
+            where id = <cfqueryparam value = arguments.id cfsqltype="cf_sql_varchar">
         </cfquery>
         <cfreturn true />
     </cffunction>
@@ -86,8 +90,11 @@
         <cftransaction>
             <cfquery name="qUpdateUser" datasource="#this.odbc#">
                 Update [user] 
-                set username='#arguments.username#', password='#arguments.password#', type='#arguments.type#', status='#arguments.status#'
-                where id='#arguments.userID#'
+                set username=   <cfqueryparam value = arguments.username cfsqltype="cf_sql_varchar">, 
+                    password=   <cfqueryparam value = arguments.password cfsqltype="cf_sql_varchar">,
+                    type=       <cfqueryparam value = arguments.type cfsqltype="cf_sql_varchar">, 
+                    status=     <cfqueryparam value = arguments.status cfsqltype="cf_sql_varchar">
+                where id=      <cfqueryparam value = arguments.userID cfsqltype="cf_sql_varchar">
             </cfquery>
             <cfquery name="qDeleteUserLoc" datasource="#this.odbc#">
                 Delete FROM [user_machine] where userID = '#arguments.userID#'
@@ -107,5 +114,19 @@
             </cfloop>
         </cftransaction>
         <cfreturn true />
+    </cffunction>
+   
+    <cffunction access="public" name="getSiteUserRoleList" output="false" returntype="query">
+        <cfargument name="id" type="string" required="yes">
+        <cfargument name="role" type="string" required="yes">
+        <cfquery name="qGetOrg" datasource="#this.odbc#">
+            Select distinct u.username, u.email
+            from [user] u with (nolock)
+            INNER JOIN [role] r on u.[type]=r.[id] and r.[type]='#arguments.role#'
+            INNER JOIN user_machine um on u.id = um.userID
+            INNER JOIN machine m on um.machineid = m.id
+            where m.id='#arguments.id#'
+        </cfquery>
+        <cfreturn qGetOrg />
     </cffunction>
 </cfcomponent>
