@@ -55,4 +55,3 @@
     });
   });
 </script>
-<cfsetting showdebugoutput="yes">

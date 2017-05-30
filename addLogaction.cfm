@@ -18,7 +18,7 @@
 	<cfmodule TEMPLATE="library\customtags\Email.cfm" 
 		TO="#form.notificationEmail#"
 		FROM="#variables.EmailSender#"
-		SUBJECT="#form.machineName# [#local.thismachineStatus#] #dateformat(now())# a las #TimeFormat(now(), "hh:mm:sstt")#"
+		SUBJECT="[#local.thismachineStatus#] #form.machineName# #dateformat(now())# a las #TimeFormat(now(), "hh:mm:sstt")#"
 		mode="addLog"
 		struct="#form#">
 

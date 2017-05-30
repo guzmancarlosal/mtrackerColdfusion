@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 text-center">
-                    <p><a class="btn btn-lg btn-success btn-block" href="userReport.cfm" role="button" id="startBtn"><i class="fa fa-cog" aria-hidden="true"></i>Producción Máquina por hora</a></p>
+                    <p><a class="btn btn-lg btn-success btn-block" href="reportMachineByhour.cfm" role="button" id="startBtn"><i class="fa fa-cog" aria-hidden="true"></i> Producción Máquina por hora</a></p>
                 </div>
                 <div class="col-sm-6 text-center">
                     <p><a class="btn btn-lg btn-success btn-block" href="machineReport.cfm" role="button" id="startBtn"><i class="fa fa-area-chart" aria-hidden="true"></i> Reporte de defectos</a></p>

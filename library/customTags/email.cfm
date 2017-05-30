@@ -37,7 +37,6 @@
             </style>
             </head>
             Este email ha sido generado automáticamente por la Aplicación MTracker, favor de no responderlo.<br><br>
-            #GetAuthUser()#
         	<table width ="100%" border=1 style="font-size: 14px">
         		<tr><td colspan="2" style="background-color:##005e85">&nbsp;<img src="http://mtracker-webxikma-com.securec102.ezhostingserver.com/img/mTrackericonsmal.png"><span style="color:white"><b>MTracker<b></span></td><tr>
 
