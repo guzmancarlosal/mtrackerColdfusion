@@ -15,11 +15,13 @@
 
 <cfprocessingdirective pageencoding = "utf-8">
 <cfset lObj = createObject("component","library.cfc.report").init(odbc=request.ODBC)>
-<cfif form.iscustomDate and form.hour and form.day>
-		<cfset local.DateRecorded = dateformat(form.day,"yyyy-mm-dd") && " " && form.hour>
+<cfif form.iscustomDate eq "true" and form.hour neq "" and form.day neq "">
+		<cfset local.DateRecorded = dateformat(form.day,"yyyy-mm-dd") & " " &form.hour> yes thing
 	<cfelse>
 		<cfset local.DateRecorded = now()>
 </cfif>
+<cfdump var="#form#">
+
 <cfset qSite = lObj.addLog(machineStatus=form.machineStatus, date=local.DateRecorded, pie1=form.pie1, pie2=form.pie2, idMachine=form.idMachine,comments=form.comments, userID=form.idUser)>
 <cfif isdefined("form.notification") and form.notification eq 1 and isdefined("form.notificationEmail")>
 	<cfset local.thismachineStatus ="">
@@ -27,7 +29,7 @@
 	<cfmodule TEMPLATE="library\customtags\Email.cfm" 
 		TO="#form.notificationEmail#"
 		FROM="#variables.EmailSender#"
-		SUBJECT="[#local.thismachineStatus#] #form.machineName# #dateformat(now())# a las #TimeFormat(now(), "hh:mm:sstt")#"
+		SUBJECT="[#local.thismachineStatus#] #form.machineName# #dateformat( local.DateRecorded,"dd-mmm-yyyy")# a las #TimeFormat(local.DateRecorded, "hh:mm:sstt")#"
 		mode="addLog"
 		struct="#form#">
 

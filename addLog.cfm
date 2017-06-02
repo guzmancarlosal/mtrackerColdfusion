@@ -18,11 +18,9 @@
 <head>
   <cfprocessingdirective pageencoding = "utf-8">
   	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+	<link rel="stylesheet" href="//cdnjs.font.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
 	<link rel="stylesheet" type="text/css" href="dist/bootstrap-clockpicker.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/github.min.css">
-	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
-	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="dist/bootstrap-clockpicker.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 
@@ -51,7 +49,7 @@
 			.find('input').change(function(){
 				console.log(this.value);
 			});
-		var input = $('#single-input').clockpicker({
+		var input = $('#hour').clockpicker({
 			placement: 'bottom',
 			align: 'left',
 			autoclose: true,
@@ -77,7 +75,10 @@
                     	notification : $('#notification').val(),
                     	notificationEmail : $('#notificationEmail').val(),
                     	machineName : $('#machineName').val(), 
-                    	machineCapacity: $('#machineCapacity').val()
+                    	machineCapacity: $('#machineCapacity').val(),
+                    	day: $('#day').val(),
+                    	hour: $('#hour').val(),
+                    	iscustomDate : $('#iscustomDate').val()
                    },
 		           success: function(data)
 		           {
@@ -146,11 +147,11 @@
 			<h1 class="text-center" id ="clockDiv"><div id="txt"></div></h1>
 			<div class="form-group form-group-lg" id="dateDiv2" style="display:none;">
 				<input  class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="Fecha" id="day">
-				<input class="form-control" id="single-input" value="" placeholder="Hora" id="hour">
+				<input class="form-control" id="hour" value="" placeholder="hora" style="width:80px;margin-right:20px;">
 			</div>
 			<div class="form-group form-group-lg">
 				<select class="form-control input-lg" id="machineStatus" placeholder="Status">
-					<option value="" selected disabled>Selecciona el esStatus de la máquina</option>
+					<option value="" selected disabled>Selecciona el estatus de la máquina</option>
 					<option value ="1">Activo</option>
 					<option value ="0">Inactivo</option>
 				</select>

@@ -33,7 +33,7 @@
             </cfif>
     		<cfquery name="qAddlog" datasource="#this.odbc#">
                 Insert into log (idusuario, idMachine,time, status, idDescription, itemsproduced, gooditems)
-                values (<cfqueryparam value = "#arguments.userID#" cfsqltype="cf_sql_varchar">,<cfqueryparam value = "#arguments.idMachine#" cfsqltype="cf_sql_varchar">,#arguments.date#,'#machineStatus#','#local.idDescription#',
+                values (<cfqueryparam value = "#arguments.userID#" cfsqltype="cf_sql_varchar">,<cfqueryparam value = "#arguments.idMachine#" cfsqltype="cf_sql_varchar">,N'#arguments.date#',N'#machineStatus#',N'#local.idDescription#',
                     <cfqueryparam value = "#pie1#" cfsqltype="cf_sql_varchar">, <cfqueryparam value = "#pie2#" cfsqltype="cf_sql_varchar">)
             </cfquery>
         </cftransaction>
