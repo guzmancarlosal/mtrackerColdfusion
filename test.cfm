@@ -4,10 +4,11 @@
 <cfparam name="variables.EmailSender" default="MTracker@xikmaapps.com">
 <cfprocessingdirective pageencoding = "utf-8">
 
-<!--- testing email
+ testing email
 <cfmodule TEMPLATE="library\customtags\Email.cfm" 
 	TO="#form.notificationEmail#"
 	FROM="#variables.EmailSender#"
 	SUBJECT="Última Actualización de la máquina #form.machineName# #dateformat(now())# a las #TimeFormat(now(), "hh:mm:sstt")#"
 	mode="addLog"
-	struct="#form#">--->
+	onScreen="false"
+	struct="#form#">

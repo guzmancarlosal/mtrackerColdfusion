@@ -17,6 +17,15 @@
 <html>
 <head>
   <cfprocessingdirective pageencoding = "utf-8">
+  	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css" />
+	<link rel="stylesheet" type="text/css" href="dist/bootstrap-clockpicker.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/github.min.css">
+	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="dist/bootstrap-clockpicker.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
   <link rel="icon" href="../../favicon.ico">
 
   <title>Log Machine Status</title>
@@ -38,6 +47,20 @@
       return i;
     }
     $(document).ready(function(){
+    	$('.clockpicker').clockpicker()
+			.find('input').change(function(){
+				console.log(this.value);
+			});
+		var input = $('#single-input').clockpicker({
+			placement: 'bottom',
+			align: 'left',
+			autoclose: true,
+			'default': 'now'
+		});
+    	$('.datepicker').datepicker({
+		    format: 'd/M/yyyy',
+		     language: 'es'
+		});
 		$("#sbmBtn").click(function(){
 			if(validateForm()){
 	        	$.ajax({
@@ -68,6 +91,14 @@
 	    });
 	     $('#closeBtn, #closeBtn2').click(function(){
 	    	location.reload();
+	    });
+	    $('#hourChange').click(function(){
+	    	$('#dateDiv, #clockDiv, #dateDiv2').toggle();
+	    	if($('#iscustomDate').val()== "true") {
+	    		$('#iscustomDate').val('false');
+	    	}else {
+				$('#iscustomDate').val('true');
+	    	}
 	    });
 	    
 	});
@@ -110,14 +141,20 @@
 	<div class="container">
 		<!---<form name="addLog" id="addLog" class="form-horizontal">--->
 			<h1 class="text-center">#qGetMachine.name#</h1>
-			<h5 class="text-center">#dateformat(now(),"dd-mmm-yyyy")#</h5>
-			<h1 class="text-center"><div id="txt"></div></h1>
+			<div id ="hourChange" class="text-center"><button class="btn btn-success btn-sm"> Cambiar de día/hora?</button></div>
+			<h5 class="text-center" id="dateDiv">#dateformat(now(),"dd-mmm-yyyy")#</h5>
+			<h1 class="text-center" id ="clockDiv"><div id="txt"></div></h1>
+			<div class="form-group form-group-lg" id="dateDiv2" style="display:none;">
+				<input  class="datepicker form-control" data-date-format="mm/dd/yyyy" placeholder="Fecha" id="day">
+				<input class="form-control" id="single-input" value="" placeholder="Hora" id="hour">
+			</div>
 			<div class="form-group form-group-lg">
 				<select class="form-control input-lg" id="machineStatus" placeholder="Status">
-					<option value="" selected disabled>Selecciona el estatus de la máquina</option>
+					<option value="" selected disabled>Selecciona el esStatus de la máquina</option>
 					<option value ="1">Activo</option>
 					<option value ="0">Inactivo</option>
 				</select>
+				<input type="hidden" id="iscustomDate" name="iscustomDate" value="false">
 				<input type="hidden" id="date" name="date" value="#now()#">
 				<input type="hidden" id="idMachine" name="idMachine" value="#url.machineID#">
 				<input type="hidden" id="idUser" name="idUser" value="#url.userid#">

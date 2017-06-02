@@ -32,72 +32,49 @@
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
-        var d = new Date();
-        var n = d.getHours();
-
+       /* var d = new Date();
+        var n = d.getHours();*/
+       
         function drawChart() {
-
-            var data = google.visualization.arrayToDataTable([
-              ["Hora","IXRN-29"], [0, 5], [1, 5], [2, 5], [3, 5], [4, 5], [5, 5], [6, 5], [7, 5], [8, 5], [9, 5], [10, 5], [11, 5], [12, 5], [13, 5], [14, 5], [15, 5], [16, 5], [17, 5], [18, 5], [19, 5], [20, 5], [21, 5], [22, 5], [23,5]
-            ]);
-
-            var options = {
-              curveType: 'function',
-              legend: { position: 'bottom' }
-            };
-
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-            google.visualization.events.addListener(chart, 'ready', function () {
-                curve_chart.innerHTML = '<img src="' + chart.getImageURI() + '">';
-                //console.log(curve_chart.innerHTML);
-            });
-            chart.draw(data, options);
-            //starting png
-            document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
-
-
         }
-        /*function drawChart(chart_data, chart1_main_title, chart1_vaxis_title) {
-          var chart1_data = new google.visualization.arrayToDataTable(chart_data);
-          var chart1_options = {
-              title: chart1_main_title,
-              vAxis: {title: chart1_vaxis_title,  titleTextStyle: {color: 'red'}}
-          };
+        <cfset local.dayToday = day(now())>
+        <cfset local.yearToday = year(now())>
+        <cfset local.monthToday = month(now())-1>
 
-          var chart1_chart = new google.visualization.BarChart(document.getElementById('curve_chart'));
-          chart1_chart.draw(chart1_data, chart1_options);
-      }*/
-
+        <cfset local.dayYesterday = day(DateAdd('d', -1, now()))>
+        <cfset local.yearYesterday = year(DateAdd('d', -1, now()))>
+        <cfset local.monthYesterday = month(DateAdd('d', -1, now()))-1>
         $(document).ready(function() {
           $('##machineid').change(function(e){
              $.ajax({
                 type: "POST",
                 url: 'dataJSON.cfm?mode=getMachineByHour&machineid='+$("##machineid").val(),
-                //dataType: "json",
                 success: function(json) {
-                  debugger;
-                  var data = google.visualization.arrayToDataTable(json);
-                  /*var data = google.visualization.DataTable();
-                   data.addColumn('datetime', 'Time of Day');
-                    data.addColumn('number', 'Motivation Level');**/
-                  if(data){
-                      //drawChart(data, "My Chart", "Data");
-                      
-                      var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-                      google.visualization.events.addListener(chart, 'ready', function () {
-                          curve_chart.innerHTML = '<img src="' + chart.getImageURI() + '">';
-                          //console.log(curve_chart.innerHTML);
-                      });
-                       var options = {
-                        curveType: 'function',
-                        legend: { position: 'bottom' }
-                      };
-                      chart.draw(data, options);
-                  }
-                 // console.log(json);
+                  var res = json.replace('"', '');
+                  var thisJson = eval(json);
+                  var data = new google.visualization.arrayToDataTable(thisJson);
+                  //data.addRows(thisJson);
+                  var options = {
+                    title: 'Producción por Máquina en las últimas 24 horas',
+                    width: 900,
+                    height: 500,
+                    enableInteractivity: false,
+                    chartArea: {
+                      width: '90%'
+                    }
+                  };
+
+                  var chart = new google.visualization.LineChart(
+                    document.getElementById('curve_chart'));
+                  
+                  chart.draw(data, options);
+                  document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
+                  $('##png').text("");
+                   $('##png').innerHTML('<a href="' + chart.getImageURI() + '">Guardar como Imagen</a>');
                 }
             });
           });
+
         } );
     </script>
   </head>
@@ -113,10 +90,10 @@
     <div class="row">
         <div class="col-sm-4 text-center"></div>
         <div class="col-sm-4 text-center"><br>
-            <h4>Selecciona una máquina</h4>
+            
              <cfif qGetMachine.recordcount>
               <select id="machineid" name="machineid" class="form-control">
-                <option value="">Todas
+                <option value="">Selecciona una maquina
                 <cfloop query="#qGetMachine#">
                   <option value="#qGetMachine.mid#">#qGetMachine.name#
                 </cfloop>
@@ -128,13 +105,21 @@
             </cfif>
         </div>
     </div>
+
     <div class="row">
       <div class="col-sm-12 text-center">
-          <div id="curve_chart" style="height:400px" ></div>
+          <div id="curve_chart" ></div>
         </div>
       
       </div>
-         <div id='png'></div>
+         
+    </div>
+    <br><Br>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <div id='png'></div>
+      </div>
+      
     </div>
 
    

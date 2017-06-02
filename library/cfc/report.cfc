@@ -33,7 +33,7 @@
             </cfif>
     		<cfquery name="qAddlog" datasource="#this.odbc#">
                 Insert into log (idusuario, idMachine,time, status, idDescription, itemsproduced, gooditems)
-                values (<cfqueryparam value = "#arguments.userID#" cfsqltype="cf_sql_varchar">,<cfqueryparam value = "#arguments.idMachine#" cfsqltype="cf_sql_varchar">,#now()#,'#machineStatus#','#local.idDescription#',
+                values (<cfqueryparam value = "#arguments.userID#" cfsqltype="cf_sql_varchar">,<cfqueryparam value = "#arguments.idMachine#" cfsqltype="cf_sql_varchar">,#arguments.date#,'#machineStatus#','#local.idDescription#',
                     <cfqueryparam value = "#pie1#" cfsqltype="cf_sql_varchar">, <cfqueryparam value = "#pie2#" cfsqltype="cf_sql_varchar">)
             </cfquery>
         </cftransaction>
@@ -50,22 +50,20 @@
         <cfreturn qGetLog />
     </cffunction>
     <cffunction access="public" name="getLast24logs" output="false" returntype="query">
-        <cfargument name="id" type="string" required="yes">
+        <cfargument name="id" type="string" required="no" default="">
         <cfquery name="qGetLog" datasource="#this.odbc#">
         select * 
             from( 
             Select itemsproduced, machine.name,datepart(hour,[time]) as hour
             from [log] with (nolock)
             Inner join machine on [log].idmachine = machine.id
-            where 1=1
+            where 1=1 and [log].status=1
             <cfif arguments.id neq "">
                and  idMachine=N'#arguments.id#'
             </cfif>
                 and (cast([time] as date) = '#dateformat(now(),"yyyy-mm-dd")#' or cast([time] as date) = '#dateformat(DateAdd('d', -1, now()),"yyyy-mm-dd")#')
             ) as d
             pivot (avg(itemsproduced) for [hour] in (<cfloop from=0 to="22" index="i">[#i#],</cfloop>[23])) as test
-
-
         </cfquery>
         <cfreturn qGetLog />
     </cffunction>
